@@ -44,7 +44,7 @@ async function signup(req, res) {
 }
 
 async function CreatePinjam(req, res) {
-  const { user_npm, barang_id, jumlah_barang, alasan_kebutuhan, jangka_waktu, konfirmasi } = req.body;
+  const { user_npm, barang_id, jumlah_barang, alasan_kebutuhan, jangka_waktu } = req.body;
   try {
     const takeName = await pool.query("SELECT * FROM users WHERE npm = $1", [user_npm]);
     let name = takeName.rows[0].nama;
@@ -61,7 +61,7 @@ async function CreatePinjam(req, res) {
         jumlah_barang,
         alasan_kebutuhan,
         jangka_waktu,
-        konfirmasi,
+        "pending",
         timestamp,
       ]);
       await pool.query("UPDATE barang SET jumlah_ketersediaan = jumlah_ketersediaan - $1 WHERE id = $2", [jumlah_barang, barang_id]);
