@@ -14,5 +14,5 @@ connectDB.connectDB();
 app.use(routes);
 
 app.listen(process.env.PORT, () => {
-  console.log("🚀 Server is running and listening on port ", port);
+  console.log("🚀 Server is running and listening on port", port);
 });
