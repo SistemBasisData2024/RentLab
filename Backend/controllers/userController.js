@@ -43,6 +43,27 @@ async function signup(req, res) {
   }
 }
 
+async function getBarangBylab(req, res){
+  const lab_id = req.params.id;
+  try {
+    const result = await pool.query(
+      `SELECT barang.* FROM barang
+      INNER JOIN lab ON barang.lab_id = lab.id 
+      WHERE barang.lab_id = $1;`, [lab_id] 
+    );
+
+    if (!result) {
+      res.status(404).send("tidak ada barang");
+    } else {
+      res.send(result.rows);
+    }
+  } catch (error) {
+    res.status(500).send({
+      err: error,
+    });
+  }
+}
+
 async function CreatePinjam(req, res) {
   const { user_npm, barang_id, jumlah_barang, alasan_kebutuhan, jangka_waktu } = req.body;
   try {
@@ -75,8 +96,31 @@ async function CreatePinjam(req, res) {
   }
 }
 
+async function getPeminjamanByUser(req, res) {
+  const npm = req.params.id;
+  try {
+    const result = await pool.query(
+      `SELECT peminjaman.* FROM peminjaman 
+      INNER JOIN users ON peminjaman.user_npm = users.npm 
+      WHERE peminjaman.user_npm = $1;`, [npm] 
+    );
+
+    if (!result) {
+      res.status(404).send("peminjaman tidak ada");
+    } else {
+      res.send(result.rows);
+    }
+  } catch (error) {
+    res.status(500).send({
+      err: error,
+    });
+  }
+};
+
 module.exports = {
   login,
   signup,
+  getBarangBylab,
   CreatePinjam,
+  getPeminjamanByUser
 };

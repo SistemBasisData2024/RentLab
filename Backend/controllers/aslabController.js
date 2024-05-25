@@ -43,7 +43,24 @@ async function signupaslab(req, res) {
   }
 }
 
+async function CreateBarang(req, res) {
+  const { nama, lab_id, jumlah_ketersediaan, image_url } = req.body;
+  try {
+      await pool.query("INSERT INTO barang (nama, lab_id, jumlah_ketersediaan, image_url) VALUES ($1, $2, $3, $4)", [
+        nama,
+        lab_id,
+        jumlah_ketersediaan,
+        image_url,
+      ]);
+      res.status(201).send("Sukses menambah barang");
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error");
+  }
+}
+
 module.exports = {
   loginaslab,
   signupaslab,
+  CreateBarang,
 };
