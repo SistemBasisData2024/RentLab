@@ -40,7 +40,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/aslab/login",
-    element: <LoginUser />,
+    element: <LoginAslab />,
   },
   {
     path: "/aslab/signup",
