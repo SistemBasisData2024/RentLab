@@ -11,11 +11,16 @@ import LoanList from "./components/LoanList.jsx";
 import HistoryLoan from "./components/HistoryLoan.jsx";
 import CreateLoan from "./components/CreateLoan.jsx";
 import CreateBarangForm from "./components/CreateBarangForm.jsx";
+import DashboardUser from "./components/DashboardUser.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Dashboard />,
+  },
+  {
+    path: "/user/dashboard",
+    element: <DashboardUser />,
   },
   {
     path: "/user/login",
