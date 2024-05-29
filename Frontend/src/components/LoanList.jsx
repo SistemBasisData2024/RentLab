@@ -61,7 +61,7 @@ const LoanList = () => {
   return (
     <div className="container mx-auto px-4 mt-5">
       <h1 className="text-3xl font-semibold mb-8 text-center">List Pinjam</h1>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto mb-10">
         <table className="w-full whitespace-nowrap rounded-lg bg-white overflow-hidden shadow-md">
           <thead className="bg-blue-200 text-gray-800">
             <tr className="text-left">
