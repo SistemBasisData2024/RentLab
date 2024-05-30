@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const connectDB = require('./connector.js');
+const connectDB = require("./connector.js");
 const bodyParser = require("body-parser");
 const routes = require("./routes/routes.js");
 
@@ -14,5 +14,6 @@ connectDB.connectDB();
 app.use(routes);
 
 app.listen(process.env.PORT, () => {
-  console.log("🚀 Server is running and listening on port ", port);
+  console.log(`Link : http://localhost:${port}`);
+  console.log("🚐 💨💨 Server running ");
 });

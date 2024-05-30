@@ -1,25 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import logo from "../assets/dashboard.png";
 
 const Dashboard = () => {
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center p-4">
-      <div className="bg-white p-6 rounded-lg shadow-lg text-center max-w-lg w-full">
-        <h1 className="text-4xl font-bold mb-4">RentLab</h1>
-        <p className="text-gray-700 mb-8">Sebuah web yang digunakan untuk melakukan peminjaman barang dari laboratorium yang ada di FTUI. Dibuat oleh Kelompok 11 - Proyek Akhir Sistem Basis Data.</p>
-        <div className="flex flex-col space-y-4">
-          <a href="http://localhost:5173/user/login" className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 inline-block text-center">
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center p-4">
+      <div className="bg-white p-6 rounded-lg shadow-md text-center max-w-md w-full">
+        <img src={logo} alt="Logo RentLab" className="mx-auto w-60 h-30 object-cover" />
+        <p className="text-gray-600 mb-10">Web yang digunakan untuk melakukan peminjaman barang dari laboratorium yang ada di FTUI. Dibuat oleh Kelompok 11 - Proyek Akhir Sistem Basis Data.</p>
+        <div className="flex flex-col space-y-3">
+          <Link to="/user/login" className="bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition-colors duration-200">
             Login User
-          </a>
-          <a href="http://localhost:5173/user/signup" className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700 inline-block text-center">
+          </Link>
+          <Link to="/user/signup" className="bg-purple-400 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition-colors duration-200">
             Sign Up User
-          </a>
-          <a href="http://localhost:5173/aslab/login" className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 inline-block text-center">
+          </Link>
+          <Link to="/aslab/login" className="bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition-colors duration-200">
             Login Aslab
-          </a>
-          <a href="http://localhost:5173/aslab/signup" className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700 inline-block text-center">
+          </Link>
+          <Link to="/aslab/signup" className="bg-purple-400 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition-colors duration-200">
             Sign Up Aslab
-          </a>
+          </Link>
         </div>
       </div>
     </div>

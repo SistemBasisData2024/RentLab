@@ -4,15 +4,14 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import UserSidebar from './UserSidebar.jsx'
 
 const DashboardUser = () => {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // base UrL
-  const baseUrl = "http://localhost:8463"
+  const baseUrl = "http://localhost:8463";
 
   // location state
-  const location = useLocation()
-  const currentUserNPM = location.state.npm
+  const location = useLocation();
+  const currentUserNPM = location.state.npm;
 
   // labs and items state
   const [labs, setLabs] = useState([])
@@ -22,31 +21,31 @@ const DashboardUser = () => {
 
   const fetchLabs = async () => {
     try {
-      const response = await axios.get(`${baseUrl}/lab/getAll`)
+      const response = await axios.get(`${baseUrl}/lab/getAll`);
       if (response) {
-        setLabs(response.data)
-        console.log("Response Labs -->", response.data)
+        setLabs(response.data);
+        console.log("Response Labs -->", response.data);
       } else {
-        alert("Failed to fetch labs data")
+        alert("Failed to fetch labs data");
       }
     } catch (error) {
-      console.error("Error fetching labs: ", error)
+      console.error("Error fetching labs: ", error);
     }
-  }
+  };
 
   const fetchItems = async (labId) => {
     try {
-      const response = await axios.get(`${baseUrl}/barang/getBarang/${labId}`)
+      const response = await axios.get(`${baseUrl}/barang/getBarang/${labId}`);
       if (response && response.data) {
-        setItems(response.data)
-        console.log("Response Items -->", response.data)
+        setItems(response.data);
+        console.log("Response Items -->", response.data);
       } else {
-        alert("Failed to fetch items data")
+        alert("Failed to fetch items data");
       }
     } catch (error) {
-      console.error("Error fetching items: ", error)
+      console.error("Error fetching items: ", error);
     }
-  }
+  };
 
   useEffect(() => {
     fetchLabs()
@@ -54,21 +53,25 @@ const DashboardUser = () => {
 
   useEffect(() => {
     if (selectedLab) {
-      fetchItems(selectedLab)
+      fetchItems(selectedLab);
     }
-  }, [selectedLab])
+  }, [selectedLab]);
 
   const handleLabChange = (event) => {
-    setSelectedLab(event.target.value)
-  }
+    setSelectedLab(event.target.value);
+  };
 
   const handleChooseItem = (itemId) => {
     navigate(`/user/createPinjam/${itemId}`, {
       state: {
-        npm: currentUserNPM
-      }
-    })
-  }
+        npm: currentUserNPM,
+      },
+    });
+  };
+
+  const handleHistoryClick = () => {
+    navigate(`/user/historyPinjam/${currentUserNPM}`);
+  };
 
   return (
     <>
@@ -128,4 +131,4 @@ const DashboardUser = () => {
   )
 }
 
-export default DashboardUser
+export default DashboardUser;
