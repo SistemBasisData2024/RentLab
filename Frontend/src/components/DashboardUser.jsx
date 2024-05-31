@@ -1,6 +1,7 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import axios from 'axios'
+import React, { useState, useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import UserSidebar from './UserSidebar.jsx'
 
 const DashboardUser = () => {
   const navigate = useNavigate();
@@ -13,9 +14,10 @@ const DashboardUser = () => {
   const currentUserNPM = location.state.npm;
 
   // labs and items state
-  const [labs, setLabs] = useState([]);
-  const [items, setItems] = useState([]);
-  const [selectedLab, setSelectedLab] = useState("");
+  const [labs, setLabs] = useState([])
+  const [items, setItems] = useState([])
+  const [selectedLab, setSelectedLab] = useState("")
+
 
   const fetchLabs = async () => {
     try {
@@ -46,7 +48,10 @@ const DashboardUser = () => {
   };
 
   useEffect(() => {
-    fetchLabs();
+    fetchLabs()
+  }, [currentUserNPM])
+
+  useEffect(() => {
     if (selectedLab) {
       fetchItems(selectedLab);
     }
@@ -69,49 +74,61 @@ const DashboardUser = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 mt-5">
-      <h1 className="text-3xl font-semibold mb-8 text-center">Loan Anything You Need</h1>
-      <div className="mb-4 flex justify-between items-center">
-        <div>
-          <label htmlFor="labSelect" className="mr-2">
-            Pilih Lab:
-          </label>
-          <select id="labSelect" value={selectedLab} onChange={handleLabChange} className="border border-gray-300 rounded px-2 py-1">
-            <option value="">Pilih lab</option>
-            {labs.map((lab) => (
-              <option key={lab.id} value={lab.id}>
-                {lab.nama}
-              </option>
-            ))}
-          </select>
-        </div>
-        <button className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400" onClick={handleHistoryClick}>
-          History Peminjaman
-        </button>
-      </div>
+    <>
+      <UserSidebar 
+        userNPM={currentUserNPM}
+      />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {selectedLab ? (
-          items.map((item) => (
-            <div key={item.id} className="border border-gray-300 rounded-lg p-4">
-              <img src={item.image_url} alt={item.nama} className="w-full h-40 object-cover mb-4" />
-              <div className="w-full h-fit flex flex-col justify-between gap-2">
-                <div>
-                  <h2 className="text-xl font-semibold">{item.nama}</h2>
-                  <p className="text-gray-700">Availability: {item.jumlah_ketersediaan}</p>
+      <div className="container mx-auto px-10 mt-5">
+        <h1 className="text-3xl font-semibold mb-8 text-center">Loan Anything You Need</h1>
+        <div className="mb-4 flex justify-between items-center mx-10">
+          <div>
+            <label htmlFor="labSelect" className="mr-2">
+              Pilih Lab:
+            </label>
+            <select
+              id="labSelect"
+              value={selectedLab}
+              onChange={handleLabChange}
+              className="border border-gray-300 rounded px-2 py-1"
+            >
+              <option value="">Pilih lab</option>
+              {labs.map((lab) => (
+                <option key={lab.id} value={lab.id}>
+                  {lab.nama}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {selectedLab ? 
+            items.map((item) => (
+              <div key={item.id} className="border border-gray-300 rounded-lg p-4">
+                <img
+                  src={item.image_url}
+                  alt={item.nama}
+                  className="w-full h-40 object-cover mb-4"
+                />
+                <div className='w-full h-fit flex flex-col justify-between gap-2'>
+                  <div>
+                    <h2 className="text-xl font-semibold">{item.nama}</h2>
+                    <p className="text-gray-700">Availability: {item.jumlah_ketersediaan}</p>
+                  </div>
+                  <button className='flex justify-center items-center bg-blue-500 text-white rounded-sm hover:bg-blue-600 duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 text-lg'
+                  onClick={() => handleChooseItem(item.id)}>Loan Item</button>
                 </div>
-                <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 text-xl" onClick={() => handleChooseItem(item.id)}>
-                  Loan Item
-                </button>
               </div>
-            </div>
-          ))
-        ) : (
-          <p className="">Choose Laboratorium to view items</p>
-        )}
+            ))
+            :
+            <p className=''>Choose Laboratorium to view items</p>
+            }
+        </div>
       </div>
-    </div>
-  );
-};
+    </>
+
+  )
+}
 
 export default DashboardUser;

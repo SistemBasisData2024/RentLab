@@ -64,3 +64,4 @@ const SignUpUser = () => {
 };
 
 export default SignUpUser;
+
