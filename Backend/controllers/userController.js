@@ -16,11 +16,11 @@ const pool = new Pool({
 async function login(req, res) {
   const { npm, password } = req.body;
   try {
-    const takePass = await pool.query("SELECT * FROM users WHERE npm = $1", [npm]);
-    let hashPass = takePass.rows[0].password;
+    const user = await pool.query("SELECT * FROM users WHERE npm = $1", [npm]);
+    let hashPass = user.rows[0].password;
     let compare = await bcrypt.compare(password, hashPass);
     if (compare) {
-      res.status(200).send("Sukses login");
+      res.status(200).send({message : "Sukses Login", body : user.rows[0]});
     } else {
       res.status(200).send("Password salah");
     }
@@ -47,7 +47,7 @@ async function getUserById(req, res) {
   const npm = req.params.id;
   try {
     const user = await pool.query("SELECT * FROM users WHERE npm = $1;", [npm]);
-    res.status(201).send(user.rows);
+    res.status(201).send(user.rows[0]);
   } catch (error) {
     console.log(error);
     res.status(500).send("Internal Server Error");
