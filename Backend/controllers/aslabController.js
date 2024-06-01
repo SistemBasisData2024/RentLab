@@ -71,7 +71,3 @@ module.exports = {
   CreateBarang,
   getAslabById,
 };
-
-const { Pool } = require("pg");
-require("dotenv").config();
-const bcrypt = require("bcrypt");

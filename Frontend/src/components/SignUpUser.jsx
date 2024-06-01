@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SignUpUser = () => {
   const [npm, setNpm] = useState("");
@@ -7,6 +8,8 @@ const SignUpUser = () => {
   const [jurusan, setJurusan] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,6 +21,10 @@ const SignUpUser = () => {
         password,
       });
       setMessage(response.data);
+
+      if (response.status) {
+        navigate("/user/login")
+      }
     } catch (error) {
       console.error(error);
       setMessage("Internal Server Error");
