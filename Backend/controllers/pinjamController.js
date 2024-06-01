@@ -148,6 +148,16 @@ async function deletePinjaman(req, res) {
   }
 }
 
+async function deleteByBarangId(req, res) {
+  const barangId = req.params.id;
+  try {
+    await pool.query("DELETE FROM peminjaman WHERE barang_id = $1;", [barangId]);
+    res.status(200).send({ message: "Referensi di tabel peminjaman berhasil dihapus" });
+  } catch (error) {
+    res.status(500).send({ message: "Error deleting references in peminjaman", error });
+  }
+}
+
 module.exports = {
   CreatePinjam,
   getPeminjamanByUser,
@@ -155,4 +165,5 @@ module.exports = {
   deletePinjaman,
   updatePinjaman,
   getPending,
+  deleteByBarangId,
 };

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const LoginAslab = () => {
   const [npm, setNpm] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,7 +15,11 @@ const LoginAslab = () => {
         npm,
         password,
       });
-      setMessage(response.data);
+      if (response.data) {
+        navigate("/aslab/dashboard", { state: { npm: npm } });
+      } else {
+        setMessage("Login failed. Please check your NPM and password.");
+      }
     } catch (error) {
       console.error(error);
       setMessage("Internal Server Error");

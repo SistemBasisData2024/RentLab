@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SignUpAslab = () => {
   const [npm, setNpm] = useState("");
@@ -8,6 +9,8 @@ const SignUpAslab = () => {
   const [password, setPassword] = useState("");
   const [labs, setLabs] = useState([]);
   const [message, setMessage] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchLabs = async () => {
@@ -32,6 +35,10 @@ const SignUpAslab = () => {
         password,
       });
       setMessage(response.data);
+
+      if (response.status) {
+        navigate("/aslab/login")
+      }
     } catch (error) {
       console.error("Error signing up:", error);
       setMessage("Internal Server Error");

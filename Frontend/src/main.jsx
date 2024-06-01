@@ -12,6 +12,9 @@ import HistoryLoan from "./components/HistoryLoan.jsx";
 import CreateLoan from "./components/CreateLoan.jsx";
 import CreateBarangForm from "./components/CreateBarangForm.jsx";
 import DashboardUser from "./components/DashboardUser.jsx";
+import LoginAslab from "./components/LoginAslab.jsx";
+import EditBarangForm from "./components/EditBarang.jsx";
+import DashboardAslab from "./components/DashboardAslab.jsx";
 
 const router = createBrowserRouter([
   {
@@ -47,12 +50,20 @@ const router = createBrowserRouter([
     element: <SignUpAslab />,
   },
   {
+    path: "/aslab/dashboard",
+    element: <DashboardAslab />,
+  },
+  {
     path: "/aslab/listPinjam/:labId",
     element: <LoanList />,
   },
   {
     path: "/aslab/createBarang",
     element: <CreateBarangForm />,
+  },
+  {
+    path: "/aslab/editBarang/:id",
+    element: <EditBarangForm />,
   },
 ]);
 

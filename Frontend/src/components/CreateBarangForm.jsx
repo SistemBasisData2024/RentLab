@@ -1,29 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 const CreateBarangForm = () => {
+  const location = useLocation();
+  const { lab_id } = location.state || {}; // Get lab_id from navigation state
+
   const [formData, setFormData] = useState({
     nama: "",
-    lab_id: "",
+    lab_id: lab_id || "", // Set lab_id from state or default to empty string
     jumlah_total: "",
     image_url: "",
   });
 
-  const [labs, setLabs] = useState([]);
   const [imageFile, setImageFile] = useState(null);
-
-  useEffect(() => {
-    const fetchLabs = async () => {
-      try {
-        const response = await axios.get("http://localhost:8463/lab/getAll");
-        setLabs(response.data);
-      } catch (error) {
-        console.error("Error fetching labs:", error);
-      }
-    };
-
-    fetchLabs();
-  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -64,7 +54,7 @@ const CreateBarangForm = () => {
           alert("Sukses menambah barang");
           setFormData({
             nama: "",
-            lab_id: "",
+            lab_id: lab_id || "",
             jumlah_total: "",
             image_url: "",
           });
@@ -88,19 +78,6 @@ const CreateBarangForm = () => {
         <div className="mb-4">
           <label className="block text-gray-700 mb-2">Nama</label>
           <input type="text" name="nama" value={formData.nama} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded" required />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 mb-2">Lab</label>
-          <select name="lab_id" value={formData.lab_id} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded" required>
-            <option value="" disabled>
-              Pilih Lab
-            </option>
-            {labs.map((lab) => (
-              <option key={lab.id} value={lab.id}>
-                {lab.nama} - {lab.lokasi}
-              </option>
-            ))}
-          </select>
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 mb-2">Jumlah Ketersediaan</label>

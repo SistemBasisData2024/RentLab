@@ -60,9 +60,17 @@ async function DeleteBarang(req, res) {
 
 async function EditBarang(req, res) {
   const id_barang = req.params.id;
-  const { nama, lab_id, jumlah_ketersediaan, image_url } = req.body;
+  const { nama, lab_id, jumlah_ketersediaan, image_url, jumlah_rent, jumlah_total } = req.body;
   try {
-    await pool.query("UPDATE barang SET nama = $1, lab_id = $2, jumlah_ketersediaan = $3, image_url = $4 WHERE id = $5", [nama, lab_id, jumlah_ketersediaan, image_url, id_barang]);
+    await pool.query("UPDATE barang SET nama = $1, lab_id = $2, jumlah_ketersediaan = $3, image_url = $4, jumlah_rent = $6, jumlah_total = $7 WHERE id = $5", [
+      nama,
+      lab_id,
+      jumlah_ketersediaan,
+      image_url,
+      id_barang,
+      jumlah_rent,
+      jumlah_total,
+    ]);
     res.status(201).send("Sukses mengedit barang");
   } catch (error) {
     console.log(error);
