@@ -5,7 +5,7 @@ const UserSidebar = ({userNPM}) => {
     const navigate = useNavigate()
 
     // sidebar state
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const toggleSideBar = () => {
     setIsSidebarOpen(!isSidebarOpen)
   }

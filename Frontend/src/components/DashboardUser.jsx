@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import UserSidebar from './UserSidebar.jsx'
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const DashboardUser = () => {
   const navigate = useNavigate();
 
@@ -13,11 +16,33 @@ const DashboardUser = () => {
   const location = useLocation();
   const currentUserNPM = location.state.npm;
 
+  // current user state
+  const [currentUser, setCurrentUser] = useState({
+    npm: "",
+    nama: "",
+    jurusan: "",
+    password: ""
+  })
+  const [isUserExist, setIsUserExist] = useState(false)
+
   // labs and items state
   const [labs, setLabs] = useState([])
   const [items, setItems] = useState([])
   const [selectedLab, setSelectedLab] = useState("")
 
+  const getCurrentUser = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/user/getUserById/${currentUserNPM}`)
+
+      if (response.status) {
+
+        setCurrentUser(response.data)
+        setIsUserExist(true)
+      }
+    } catch (error) {
+      alert("Failed to get user data");
+    }
+  }
 
   const fetchLabs = async () => {
     try {
@@ -47,8 +72,16 @@ const DashboardUser = () => {
     }
   };
 
+    // toast state
+    const notify = () => {
+      toast(`Welcome, ${currentUserNPM}!`);
+    }
+
   useEffect(() => {
+    getCurrentUser()
     fetchLabs()
+
+    notify()
   }, [currentUserNPM])
 
   useEffect(() => {
@@ -75,11 +108,24 @@ const DashboardUser = () => {
 
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="light"
+        transition: Bounce
+      />
       <UserSidebar 
         userNPM={currentUserNPM}
       />
 
-      <div className="container mx-auto px-10 mt-5">
+      <div className="w-full flex flex-col px-10 mt-5">
         <h1 className="text-3xl font-semibold mb-8 text-center">Loan Anything You Need</h1>
         <div className="mb-4 flex justify-between items-center mx-10">
           <div>
@@ -102,7 +148,7 @@ const DashboardUser = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className={`${selectedLab ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" : "flex justify-center"}`}>
           {selectedLab ? 
             items.map((item) => (
               <div key={item.id} className="border border-gray-300 rounded-lg p-4">
@@ -122,7 +168,7 @@ const DashboardUser = () => {
               </div>
             ))
             :
-            <p className=''>Choose Laboratorium to view items</p>
+              <p className='text-center'>Choose Laboratorium to view items</p>
             }
         </div>
       </div>

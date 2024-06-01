@@ -2,12 +2,19 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const LoginUser = () => {
   const [npm, setNpm] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
+  // navigate state  
   const navigate = useNavigate();
+
+  // toast state
+  const notify = () => toast("Welcome, Sir!");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,6 +26,7 @@ const LoginUser = () => {
       setMessage(response.data);
 
       if (response.status) {
+        // notify()
         navigate("/user/dashboard", {
           state: {
             npm: npm
@@ -49,9 +57,10 @@ const LoginUser = () => {
             <input type="password" id="password" className="w-full p-2 border border-gray-300 rounded" value={password} onChange={(e) => setPassword(e.target.value)} required />
           </div>
           {message && <p className="mb-4 text-center text-black-500">{message}</p>}
-          <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
+          <button onClick={notify} type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
             Login
           </button>
+          <ToastContainer />
         </form>
       </div>
     </div>

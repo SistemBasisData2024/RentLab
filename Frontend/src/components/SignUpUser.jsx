@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const SignUpUser = () => {
   const [npm, setNpm] = useState("");
   const [nama, setNama] = useState("");
@@ -9,7 +12,11 @@ const SignUpUser = () => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
+  // navigate state
   const navigate = useNavigate();
+
+  //toast state
+  const notify = () => toast("Welcome to our website!");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,6 +30,7 @@ const SignUpUser = () => {
       setMessage(response.data);
 
       if (response.status) {
+        notify;
         navigate("/user/login")
       }
     } catch (error) {
