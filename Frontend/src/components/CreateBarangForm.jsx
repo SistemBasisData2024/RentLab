@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const CreateBarangForm = () => {
+
+  // navigate state
+  const navigate = useNavigate()
+
+  //location state
   const location = useLocation();
-  const { lab_id } = location.state || {}; // Get lab_id from navigation state
+  const lab_id = location.state.lab_id
+  const currentAslabNPM = location.state.npm
 
   const [formData, setFormData] = useState({
     nama: "",
@@ -59,6 +65,11 @@ const CreateBarangForm = () => {
             image_url: "",
           });
           setImageFile(null);
+          navigate("/aslab/dashboard", {
+            state: {
+              npm: currentAslabNPM
+            }
+          })
         } else {
           alert("Gagal menambah barang");
         }
@@ -73,7 +84,7 @@ const CreateBarangForm = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <form className="bg-white p-8 rounded shadow-md w-full max-w-md" onSubmit={handleSubmit}>
+      <form className="flex flex-col bg-white p-8 rounded shadow-md w-full max-w-md" onSubmit={handleSubmit}>
         <h2 className="text-2xl font-bold mb-4 text-center">Tambah Barang</h2>
         <div className="mb-4">
           <label className="block text-gray-700 mb-2">Nama</label>
@@ -90,6 +101,12 @@ const CreateBarangForm = () => {
         <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
           Tambah Barang
         </button>
+
+        <div className="w-fit mx-auto mt-5"
+        onClick={() => navigate("/aslab/dashboard", {state: {npm: currentAslabNPM }})}
+        >
+          <a  className=" text-slate-500 hover:text-red-500 cursor-pointer duraiton-150">Cancel adding new Item</a>
+        </div>
       </form>
     </div>
   );

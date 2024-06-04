@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const LoanList = () => {
   const { labId } = useParams();
   const [loans, setLoans] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // location and navigate state
+  const location = useLocation()
+  const navigate = useNavigate()
+  const currentAslabNPM = location.state.npm
 
   useEffect(() => {
     const fetchLoans = async () => {
@@ -50,6 +55,14 @@ const LoanList = () => {
     updateStatus(id, "success");
   };
 
+  const handleBacktoDashboard = () => {
+    navigate("/aslab/dashboard", {
+      state: {
+        npm: currentAslabNPM
+      }
+    })
+  }
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -63,7 +76,7 @@ const LoanList = () => {
       <h1 className="text-3xl font-semibold mb-8 text-center">List Pinjam</h1>
       <div className="overflow-x-auto mb-10">
         <table className="w-full whitespace-nowrap rounded-lg bg-white overflow-hidden shadow-md">
-          <thead className="bg-blue-200 text-gray-800">
+          <thead className="bg-purple-200 text-gray-800">
             <tr className="text-left">
               <th className="px-4 py-3">Peminjam</th>
               <th className="px-4 py-3">Barang</th>
@@ -106,6 +119,12 @@ const LoanList = () => {
             ))}
           </tbody>
         </table>
+      </div>
+
+      <div className="w-full flex justify-end px-10">
+        <button className="ring-2 ring-purple-700 rounded-md py-1 px-2 text-purple-700 hover:bg-purple-400 hover:text-white duration-150 font-semibold"
+        onClick={() => handleBacktoDashboard()}
+        >{"<< Back to Dashboard"}</button>
       </div>
     </div>
   );

@@ -48,6 +48,10 @@ const LoginAslab = () => {
             Login
           </button>
         </form>
+
+        <div className="text-center mt-4">
+          <a href="/aslab/signup" className="text-slate-500 text-sm hover:text-blue-500 duration-150">Are you a new Laboratory Assistant?</a>
+        </div>
       </div>
     </div>
   );

@@ -12,14 +12,9 @@ const Dashboard = () => {
           <Link to="/user/login" className="bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition-colors duration-200">
             Login User
           </Link>
-          <Link to="/user/signup" className="bg-purple-400 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition-colors duration-200">
-            Sign Up User
-          </Link>
+          <p className="text-sm text-slate-500">or you re an laboratory assistant?</p>
           <Link to="/aslab/login" className="bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition-colors duration-200">
             Login Aslab
-          </Link>
-          <Link to="/aslab/signup" className="bg-purple-400 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition-colors duration-200">
-            Sign Up Aslab
           </Link>
         </div>
       </div>

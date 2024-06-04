@@ -13,9 +13,6 @@ const LoginUser = () => {
   // navigate state  
   const navigate = useNavigate();
 
-  // toast state
-  const notify = () => toast("Welcome, Sir!");
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -40,8 +37,8 @@ const LoginUser = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 border">
+      <div className="bg-white p-8 rounded shadow-md w-full max-w-md flex flex-col justify-center">
         <h2 className="text-2xl font-bold mb-6 text-center">Login User</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -57,11 +54,14 @@ const LoginUser = () => {
             <input type="password" id="password" className="w-full p-2 border border-gray-300 rounded" value={password} onChange={(e) => setPassword(e.target.value)} required />
           </div>
           {message && <p className="mb-4 text-center text-black-500">{message}</p>}
-          <button onClick={notify} type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
+          <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
             Login
           </button>
-          <ToastContainer />
         </form>
+
+        <div className="text-center m-2">
+          <a href="/user/signup" className="text-slate-500 text-sm hover:text-blue-500 duration-150">or Sign Up for new user</a>
+        </div>
       </div>
     </div>
   );

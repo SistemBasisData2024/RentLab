@@ -34,7 +34,7 @@ const UserSidebar = ({userNPM}) => {
   return (
         <aside
         id="sidebar"
-        className={`bg-slate-100 text-lg fixed top-0 h-full px-2 py-16 flex flex-col justify-between z-20 border-grey-2 border-r-2 ease-in-out duration-500 ${
+        className={`bg-purple-100 text-lg fixed top-0 h-full px-2 py-16 flex flex-col justify-between z-20 border-grey-2 border-r-2 ease-in-out duration-500 ${
             isSidebarOpen ? "left-0" : "-left-44"
         } `}
         >
@@ -44,7 +44,7 @@ const UserSidebar = ({userNPM}) => {
             >
             <svg
                 stroke="currentColor"
-                fill="#3b82f6"
+                fill="#7e22ce"
                 strokeWidth="0"
                 viewBox="0 0 20 20"
                 aria-hidden="true"
@@ -63,11 +63,11 @@ const UserSidebar = ({userNPM}) => {
             </svg>
             </div>
             
-            <div className='flex flex-col gap-2'>
+            <div className='relative flex flex-col gap-2 h-full'>
                 {
                 menus.map((menu, i) => (
-                    <div key={i} className='bg-slate-200 w-40 p-2 text-center rounded-sm hover:bg-blue-600 cursor-pointer duration-150 hover:text-white' onClick={() => movePage(menu.to)}>
-                    <p className='text-sm'>{menu.name}</p>
+                    <div key={i} className={` w-40 p-2 text-center rounded-sm cursor-pointer duration-200 hover:text-white ${menu.name == "Log Out" ? "absolute bottom-0 bg-red-500 text-white hover:bg-red-700" : "bg-purple-300 hover:bg-purple-700"}`} onClick={() => movePage(menu.to)}>
+                      <p className='text-sm'>{menu.name}</p>
                     </div>
                 ))
                 }

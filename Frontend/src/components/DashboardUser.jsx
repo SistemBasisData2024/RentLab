@@ -6,6 +6,8 @@ import UserSidebar from './UserSidebar.jsx'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import '../assets/dashboard-aslab/style.css'
+
 const DashboardUser = () => {
   const navigate = useNavigate();
 
@@ -151,18 +153,23 @@ const DashboardUser = () => {
         <div className={`${selectedLab ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" : "flex justify-center"}`}>
           {selectedLab ? 
             items.map((item) => (
-              <div key={item.id} className="border border-gray-300 rounded-lg p-4">
-                <img
-                  src={item.image_url}
-                  alt={item.nama}
-                  className="w-full h-40 object-cover mb-4"
-                />
-                <div className='w-full h-fit flex flex-col justify-between gap-2'>
+              <div key={item.id} className="border border-gray-300 rounded-lg">
+                <div className="card-item relative w-full overflow-hidden rounded-t-lg "
+                onClick={() => handleChooseItem(item.id)}
+                >
+                  <img src={item.image_url} alt={item.nama} className="card-image w-full h-40 object-cover hover:scale-150 hover:rotate-12 duration-200" />
+                  <div className="slide-cover-image absolute w-full h-full top-0 pt-96 hover:pt-0 duration-300 ease-linear cursor-pointer">
+                    <div className="flex justify-center items-center bg-gradient-to-t from-purple-700 to-transparent shadow-yellow-400 bg-opacity-40 h-full  backdrop-blur-sm">
+                    <p className="text-white text-xl text-center w-3/4">Loan this Item</p>
+                    </div>
+                  </div>
+                </div>
+                <div className='w-full h-fit flex flex-col justify-between gap-2 p-4'>
                   <div>
                     <h2 className="text-xl font-semibold">{item.nama}</h2>
                     <p className="text-gray-700">Availability: {item.jumlah_ketersediaan}</p>
                   </div>
-                  <button className='flex justify-center items-center bg-blue-500 text-white rounded-sm hover:bg-blue-600 duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 text-lg'
+                  <button className='flex justify-center items-center p-1 bg-purple-700 text-white rounded-md hover:bg-purple-800 duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 text-lg'
                   onClick={() => handleChooseItem(item.id)}>Loan Item</button>
                 </div>
               </div>
