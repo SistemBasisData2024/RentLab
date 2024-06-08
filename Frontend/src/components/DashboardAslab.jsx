@@ -4,11 +4,18 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import icon_add from '../assets/dashboard-aslab/add.png'
 import icon_lists from '../assets/dashboard-aslab/clipboard.png'
+import icon_logout from '../assets/dashboard-aslab/logout.png'
 
 import '../assets/dashboard-aslab/style.css'
 
 const DashboardAslab = () => {
   const navigate = useNavigate();
+
+  // sidebar state
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const toggleSideBar = () => {
+    setIsSidebarOpen(!isSidebarOpen)
+  }
 
   // base URL
   const baseUrl = "http://localhost:8463";
@@ -20,6 +27,9 @@ const DashboardAslab = () => {
 
   // items state
   const [items, setItems] = useState([]);
+
+  // lab state
+  const [labId, setLabId] = useState('');
 
   const fetchItems = async (labId) => {
     try {
@@ -40,6 +50,8 @@ const DashboardAslab = () => {
       try {
         const response = await axios.get(`${baseUrl}/aslab/getAslabById/${currentAslabNPM}`);
         const lab_id = response.data[0].lab_id;
+
+        setLabId(lab_id)
         fetchItems(lab_id);
       } catch (error) {
         console.error("Error fetching lab id and items: ", error);
@@ -60,7 +72,12 @@ const DashboardAslab = () => {
   };
 
   const handleEditItem = (itemId) => {
-    navigate(`/aslab/editBarang/${itemId}`);
+    navigate(`/aslab/editBarang/${itemId}`, { 
+      state: { 
+        lab_id: labId,
+        npm: currentAslabNPM
+      } 
+    });
   };
 
   const handleTambahBarang = async () => {
@@ -91,18 +108,56 @@ const DashboardAslab = () => {
     }
   };
 
+  const [hovered, setHovered] = useState(false)
+
+  const movePage = (menuUrl) => {
+    navigate(menuUrl, {
+      state: {
+        
+      }
+    })
+  }
+
   return (
-    <div className="container mx-auto px-4 lg:px-20 mt-5">
-      <h1 className="text-3xl font-semibold mb-8 text-center">Manage Laboratory Items</h1>
+    <>
+
+    {/* Log Out Side Bar */}
+    <aside
+      id="sidebar"
+      className={`bg-[#fbe9d0] text-lg fixed top-24 h-fit px-2 py-3 flex flex-col justify-between z-20 border-gray-200 border-l-4 ease-in-out duration-500  rounded-l-full ${
+        hovered ? "right-0" : "-right-24"
+      } `}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+
+      <div className='relative flex flex-col justify-center gap-2 h-full'>
+          <div
+            className={`flex gap-4 justify-center items-center w-30 p-1 mr-5 text-center rounded-sm cursor-pointer duration-200 hover:text-white rounded-r-full  $bg-[#90AEAD] hover:bg-[#E64833]"
+            }`}
+            onClick={() => movePage("/")}
+          >
+            <img src={icon_logout} alt="" className="w-5 h-5 rotate-180" />
+            <p className='text-md font-semibold text-[#E64833]'>Log Out</p>
+          </div>
+      </div>
+    </aside>
+
+    <div className="container h-full mx-auto px-4 lg:px-20" style={{ backgroundColor: "#90AEAD" }}>
+      <h1 className="text-4xl font-semibold py-8 text-center" style={{ color: "#244855" }}>Manage Laboratory Items</h1>
       <div className="mb-4 flex justify-between items-center">
         <div className="w-full flex gap-4 justify-end items-center">
-          <button className={`bg-green-500 flex gap-1 items-center text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400`} onClick={handleTambahBarang}>
+          <button className="flex gap-1 items-center text-white px-4 py-2 rounded-md bg-[#E64833] hover:bg-[#244855] duration-200 focus:outline-none focus:ring-2 focus:ring-green-400" 
+            // style={{ backgroundColor: "#E64833" }} 
+            onClick={handleTambahBarang}>
             <p>Add Item</p>
-            <img src={icon_add} className="w-4  mt-1" />
+            <img src={icon_add} className="w-4 mt-1" />
           </button>
-          <button className="bg-blue-500 flex gap-1 items-center text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400" onClick={handleListPinjam}>
-            <p>Comfirmation List</p>
-            <img src={icon_lists} className="w-4 " />
+          <button className="flex gap-1 items-center text-white px-4 py-2 rounded-md bg-[#E64833] hover:bg-[#244855] duration-200  focus:outline-none focus:ring-2 focus:ring-blue-400" 
+            // style={{ backgroundColor: "#E64833" }} 
+            onClick={handleListPinjam}>
+            <p>Confirmation List</p>
+            <img src={icon_lists} className="w-4" />
           </button>
         </div>
       </div>
@@ -110,22 +165,17 @@ const DashboardAslab = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {items.length > 0 ? (
           items.map((item) => (
-            <div key={item.id} className="relative shadow-md rounded-lg">
-              <div className="card-item relative w-full overflow-hidden rounded-t-lg "
-              onClick={() => handleEditItem(item.id)}
-              >
-                <img src={item.image_url} alt={item.nama} className="card-image w-full h-40 object-cover hover:scale-150 hover:rotate-12 duration-200" />
-                <div className="slide-cover-image absolute w-full h-full top-0 pt-96 hover:pt-0 duration-300 ease-linear cursor-pointer">
-                  <div className="flex justify-center items-center bg-gradient-to-t from-yellow-400 to-transparent shadow-yellow-400 bg-opacity-40 h-full  backdrop-blur-sm">
-                  <p className="text-white text-xl text-center">Edit this Item</p>
-                  </div>
+            <div key={item.id} className="bg-[#e4e5e6] border-2 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300" style={{ borderColor: "#E64833" }}>
+              <div className="card-item relative w-full overflow-hidden rounded-t-lg" onClick={() => handleEditItem(item.id)}>
+                <img src={item.image_url} alt={item.nama} className="card-image w-full h-40 object-cover hover:scale-110 transition-transform duration-200" />
+                <div className="slide-cover-image absolute w-full h-full top-0 flex justify-center items-center bg-black bg-opacity-50 text-white opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
+                  <p className="text-xl">Edit this Item</p>
                 </div>
               </div>
-             
               <div className="w-full h-fit p-4 flex flex-col justify-between gap-2">
-                <h2 className="text-xl font-semibold">{item.nama}</h2>
+                <h2 className="text-xl font-semibold" style={{ color: "#244855" }}>{item.nama}</h2>
                 <div className="flex gap-2 justify-between">
-                <p className="text-gray-700">Availability: {item.jumlah_ketersediaan}</p>
+                  <p className="text-gray-700">Availability: {item.jumlah_ketersediaan}</p>
                   <button className="ring-2 ring-red-500 text-red-500 px-4 py-1 rounded-md hover:bg-red-400 hover:text-white duration-150 focus:outline-none focus:ring-2 focus:ring-red-400" onClick={() => handleDeleteItem(item.id)}>
                     Delete
                   </button>
@@ -134,10 +184,12 @@ const DashboardAslab = () => {
             </div>
           ))
         ) : (
-          <p className="">No items available</p>
+          <p className="text-center" style={{ color: "#874F41" }}>No items available</p>
         )}
       </div>
     </div>
+    </>
+
   );
 };
 

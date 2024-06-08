@@ -66,18 +66,15 @@ const HistoryLoan = () => {
 
   return (
     <>
-      <UserSidebar 
-        userNPM={npm}
-      />
-
-      <div className="container mx-auto px-4 mt-5">
-        <h1 className="text-3xl font-semibold mb-8 text-center">History Loan</h1>
+      <UserSidebar userNPM={npm} />
+      <div className="container mx-auto px-20 mt-5" style={{ backgroundColor: "#90AEAD" }}>
+        <h1 className="text-3xl font-semibold mb-8 text-center" style={{ color: "#244855" }}>History Loan</h1>
         <div className="mb-4 flex justify-between items-center">
           <div>
-            <label htmlFor="labSelect" className="mr-2">
+            <label htmlFor="labSelect" className="mr-2" style={{ color: "#874F41" }}>
               Pilih Lab:
             </label>
-            <select id="labSelect" value={selectedLab} onChange={handleLabChange} className="border border-gray-300 rounded px-2 py-1">
+            <select id="labSelect" value={selectedLab} onChange={handleLabChange} className="border-2 rounded px-2 py-1" style={{ borderColor: "#E64833", color: "#244855" }}>
               <option value="">Pilih lab</option>
               {labs.map((lab) => (
                 <option key={lab.id} value={lab.id}>
@@ -87,16 +84,16 @@ const HistoryLoan = () => {
             </select>
           </div>
           <div>
-            <button onClick={fetchPendingLoans} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 mr-2">
+            <button onClick={fetchPendingLoans} className="bg-[#244855] text-white px-4 py-2 rounded hover:bg-blue-600 mr-2">
               Filter Pending dan Rent
             </button>
-            <button onClick={refreshPage} className="bg-amber-500 text-white px-4 py-2 rounded hover:bg-amber-600">
+            <button onClick={refreshPage} className="bg-[#874F41] text-white px-4 py-2 rounded hover:bg-red-600">
               No Filter
             </button>
           </div>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full whitespace-nowrap rounded-lg bg-white overflow-hidden shadow-md">
+          <table className="w-full whitespace-nowrap rounded-lg bg-[#FBE9D0] overflow-hidden shadow-md">
             <thead className="bg-blue-200 text-gray-800">
               <tr className="text-left">
                 <th className="px-4 py-3">Peminjam</th>
@@ -125,7 +122,6 @@ const HistoryLoan = () => {
         </div>
       </div>
     </>
-
   );
 };
 

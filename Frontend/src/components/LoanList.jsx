@@ -7,9 +7,9 @@ const LoanList = () => {
   const [loading, setLoading] = useState(true);
 
   // location and navigate state
-  const location = useLocation()
-  const navigate = useNavigate()
-  const currentAslabNPM = location.state.npm
+  const location = useLocation();
+  const navigate = useNavigate();
+  const currentAslabNPM = location.state.npm;
 
   useEffect(() => {
     const fetchLoans = async () => {
@@ -53,6 +53,7 @@ const LoanList = () => {
 
   const handleComplete = (id) => {
     updateStatus(id, "success");
+    navigate(0);
   };
 
   const handleBacktoDashboard = () => {
@@ -60,8 +61,8 @@ const LoanList = () => {
       state: {
         npm: currentAslabNPM
       }
-    })
-  }
+    });
+  };
 
   if (loading) {
     return (
@@ -72,10 +73,10 @@ const LoanList = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 mt-5">
-      <h1 className="text-3xl font-semibold mb-8 text-center">List Pinjam</h1>
-      <div className="overflow-x-auto mb-10">
-        <table className="w-full whitespace-nowrap rounded-lg bg-white overflow-hidden shadow-md">
+    <div className="container h-screen mx-auto px-4" style={{ backgroundColor: "#90AEAD" }}>
+      <h1 className="text-4xl font-semibold mb-8 text-center pt-10" style={{ color: "#244855" }}>List Pinjam</h1>
+      <div className="overflow-x-auto mb-5">
+        <table className="w-full whitespace-nowrap rounded-lg bg-[#FBE9D0] overflow-hidden shadow-md">
           <thead className="bg-purple-200 text-gray-800">
             <tr className="text-left">
               <th className="px-4 py-3">Peminjam</th>
@@ -122,9 +123,8 @@ const LoanList = () => {
       </div>
 
       <div className="w-full flex justify-end px-10">
-        <button className="ring-2 ring-purple-700 rounded-md py-1 px-2 text-purple-700 hover:bg-purple-400 hover:text-white duration-150 font-semibold"
-        onClick={() => handleBacktoDashboard()}
-        >{"<< Back to Dashboard"}</button>
+        <a onClick={handleBacktoDashboard} className="cursor-pointer bg-white p-2 rounded-md text-[#E64833] hover:text-white hover:bg-[#E64833] duration-200">
+        {"<< Back to Dashboard"}</a>
       </div>
     </div>
   );

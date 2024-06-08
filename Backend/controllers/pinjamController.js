@@ -128,6 +128,22 @@ async function updatePinjaman(req, res) {
       return res.send(updatedResult.rows[0]);
     }
 
+    // Jika status adalah 'success', update tabel barang
+    if (status === "success") {
+      // Ambil data peminjaman untuk mendapatkan barang_id dan jumlah_barang
+      const peminjamanData = result.rows[0];
+      const barang_id = peminjamanData.barang_id;
+      const jumlah_barang = peminjamanData.jumlah_barang;
+
+      // Update tabel barang
+      await pool.query("UPDATE barang SET jumlah_ketersediaan = jumlah_ketersediaan + $1, jumlah_rent = jumlah_rent - $2 WHERE id = $3;", [jumlah_barang, jumlah_barang, barang_id]);
+
+      // Ambil kembali baris yang telah diperbarui dari tabel barang
+      const updatedBarangResult = await pool.query("SELECT * FROM barang WHERE id = $1;", [barang_id]);
+
+      return res.send(updatedBarangResult.rows[0]);
+    }
+
     // Jika tidak, kirim hasil awal
     res.send(result.rows[0]);
   } catch (error) {

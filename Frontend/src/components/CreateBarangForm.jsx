@@ -3,7 +3,6 @@ import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const CreateBarangForm = () => {
-
   // navigate state
   const navigate = useNavigate()
 
@@ -83,29 +82,27 @@ const CreateBarangForm = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <form className="flex flex-col bg-white p-8 rounded shadow-md w-full max-w-md" onSubmit={handleSubmit}>
-        <h2 className="text-2xl font-bold mb-4 text-center">Tambah Barang</h2>
+    <div className="flex justify-center items-center min-h-screen" style={{ backgroundColor: "#90AEAD" }}>
+      <form className="flex flex-col bg-[#FBE9D0] p-8 rounded shadow-md w-full max-w-md" onSubmit={handleSubmit}>
+        <h2 className="text-2xl font-bold mb-4 text-center" style={{ color: "#244855" }}>Tambah Barang</h2>
         <div className="mb-4">
-          <label className="block text-gray-700 mb-2">Nama</label>
-          <input type="text" name="nama" value={formData.nama} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded" required />
+          <label className="block mb-2" style={{ color: "#874F41" }}>Nama</label>
+          <input type="text" name="nama" value={formData.nama} onChange={handleChange} className="w-full p-2 border-2 rounded" style={{ borderColor: "#E64833", color: "#244855" }} required />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 mb-2">Jumlah Ketersediaan</label>
-          <input type="number" name="jumlah_total" value={formData.jumlah_total} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded" required />
+          <label className="block mb-2" style={{ color: "#874F41" }}>Jumlah Ketersediaan</label>
+          <input type="number" name="jumlah_total" value={formData.jumlah_total} onChange={handleChange} className="w-full p-2 border-2 rounded" style={{ borderColor: "#E64833", color: "#244855" }} required />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 mb-2">Upload Image</label>
-          <input type="file" name="image" onChange={handleFileChange} className="w-full p-2 border border-gray-300 rounded" required />
+          <label className="block mb-2" style={{ color: "#874F41" }}>Upload Image</label>
+          <input type="file" name="image" onChange={handleFileChange} className="w-full p-2 border-2 rounded" style={{ borderColor: "#E64833", color: "#244855" }} required />
         </div>
-        <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
+        <button type="submit" className="w-full py-2 rounded hover:bg-blue-600" style={{ backgroundColor: "#244855", color: "#FBE9D0" }}>
           Tambah Barang
         </button>
 
-        <div className="w-fit mx-auto mt-5"
-        onClick={() => navigate("/aslab/dashboard", {state: {npm: currentAslabNPM }})}
-        >
-          <a  className=" text-slate-500 hover:text-red-500 cursor-pointer duraiton-150">Cancel adding new Item</a>
+        <div className="w-fit mx-auto mt-5" onClick={() => navigate("/aslab/dashboard", { state: { npm: currentAslabNPM } })}>
+          <a className="text-slate-500 hover:text-red-500 cursor-pointer duration-150">Cancel adding new Item</a>
         </div>
       </form>
     </div>
