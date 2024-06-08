@@ -61,3 +61,78 @@ git clone https://github.com/SistemBasisData2024/RentLab.git
    npm run start
   ```
   
+# LIST API
+
+## Backend
+USER
+
+  - Login User =  http://localhost:8463/user/login
+
+  - SignUp User =  http://localhost:8463/user/signup
+
+  - Get User by npm =  http://localhost:8463/user/getUserById/:id
+
+
+ASLAB
+
+  - Login Aslab =  http://localhost:8463/aslab/login
+
+  - SignUp Aslab =  http://localhost:8463/aslab/signup
+
+  - Get Aslab by npm =  http://localhost:8463/aslab/getAslabById/:id
+
+
+BARANG
+
+  - Get All Barang by idlab =  http://localhost:8463/barang/getBarang/:id
+
+  - Create Barang =  http://localhost:8463/barang/addBarang
+
+  - Edit Barang =  http://localhost:8463/barang/editBarang/:id
+
+  - Delete Barang =  http://localhost:8463/barang/deleteBarang/:id
+
+
+PINJAM
+
+  - Create Pinjam =  http://localhost:8463/pinjam/addPinjam
+
+  - Get History Pinjam from npm =  http://localhost:8463/pinjam/getPinjamUser/:id
+
+  - Get All List Pinjam from lab_id =  http://localhost:8463/pinjam/getPinjamAslab/:id
+
+  - Get All Pending and Rent from lab_id =  http://localhost:8463/pinjam//getPendingAndRent/:id
+
+  - Delete pinjam =  http://localhost:8463/pinjam/deletePinjam/:id
+
+  - Update pinjam =  http://localhost:8463/pinjam/updateKonfirmasi/:id
+
+
+LAB
+  - Get All Lab =  http://localhost:8463/lab/getAll
+
+
+CLOUDINARY
+  - Upload to cloudinary =  http://localhost:8463/cloudinary
+
+## Frontend
+USER
+
+  - Login User = http://localhost:5173/user/login
+
+  - SignUp User = http://localhost:5173/user/signup
+
+  - History Pinjam User = http://localhost:5173/user/historyPinjam/:npm
+
+  - Create Pinjaman User = http://localhost:5173/user/createPinjam/:barangId
+
+
+ASLAB
+
+  - Login Aslab = http://localhost:5173/aslab/login
+
+  - SignUp Aslab = http://localhost:5173/aslab/signup
+
+  - List Pinjam Aslab = http://localhost:5173/aslab/listPinjam/:labId
+
+  - Create Barang Aslab = http://localhost:5173/aslab/createBarang
