@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useLoginStatus } from "./loginStatus/loginStatus";
 
 const LoginAslab = () => {
   const [npm, setNpm] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+
+  // login status variable
+  const { accountLogged, setAccountLogged } = useLoginStatus();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,6 +20,7 @@ const LoginAslab = () => {
         password,
       });
       if (response.data) {
+        setAccountLogged(true)
         navigate("/aslab/dashboard", { state: { npm: npm } });
       } else {
         setMessage("Login failed. Please check your NPM and password.");

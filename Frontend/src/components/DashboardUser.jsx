@@ -48,8 +48,15 @@ const DashboardUser = () => {
   const fetchLabs = async () => {
     try {
       const response = await axios.get(`${baseUrl}/lab/getAll`);
-      if (response) {
+      if (response && response.data) {
         setLabs(response.data);
+
+        // Set default lab to "Network Laboratory"
+        const defaultLab = response.data.find(lab => lab.nama === "Network Laboratory");
+        if (defaultLab) {
+          setSelectedLab(defaultLab.id);
+          fetchItems(defaultLab.id);
+        }
       } else {
         alert("Failed to fetch labs data");
       }
@@ -79,18 +86,12 @@ const DashboardUser = () => {
   useEffect(() => {
     getCurrentUser()
     fetchLabs()
-
     notify()
   }, [currentUserNPM])
 
-  useEffect(() => {
-    if (selectedLab) {
-      fetchItems(selectedLab);
-    }
-  }, [selectedLab]);
-
   const handleLabChange = (event) => {
     setSelectedLab(event.target.value);
+    fetchItems(event.target.value);
   };
 
   const handleChooseItem = (itemId) => {
