@@ -1,4 +1,5 @@
 # Rentlab
+![messageImage_1717938175637](https://github.com/SistemBasisData2024/RentLab/assets/123520791/de1d471c-4549-4cd0-9a35-826b73c2a195)
 
 Project "RentLab" adalah sebuah Website yang digunakan untuk peminjaman barang laboratorium yang ada di Fakultas Teknik Universitas Indonesia. Website ini terbagi menjadi dua pengguna yaitu user sebagai mahasiswa yang akan meminjam barang dan aslab sebagai pengguna yang mengatur barang laboratorium
 
