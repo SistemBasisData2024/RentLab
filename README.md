@@ -136,3 +136,8 @@ ASLAB
   - List Pinjam Aslab = http://localhost:5173/aslab/listPinjam/:labId
 
   - Create Barang Aslab = http://localhost:5173/aslab/createBarang
+
+# Progress Report
+![image](https://github.com/SistemBasisData2024/RentLab/assets/144201055/34719802-d565-4a0f-b5ef-3cda6085dbd0)
+![image](https://github.com/SistemBasisData2024/RentLab/assets/144201055/618ee38b-2fa5-4703-a28c-1cf6fc93eb95)
+
